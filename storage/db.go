@@ -48,7 +48,7 @@ func RunMigrations(db *sql.DB) error {
 	}
 
 	stmt = `CREATE TABLE IF NOT EXISTS activity(
-			 device_id character(36) NOT NULL references devices(device_id)m
+			 device_id character(36) NOT NULL references devices(device_id),
 			 posted_at timestamp with time zone NOT NULL,
 			 app text NOT NULL
 			 );`

@@ -2,9 +2,7 @@ package main
 
 import (
 	"log"
-	"net/http"
 
-	"github.com/dead-like-roses/od_tracker/services"
 	"github.com/dead-like-roses/od_tracker/storage"
 	//	. "github.com/go-jet/jet/v2/postgres"
 	"github.com/labstack/echo/v4"
@@ -20,9 +18,9 @@ func main() {
 		log.Fatal(err.Error())
 	}
 
-	ah := ActivityHandler{}
+	//	ah := ActivityHandler{}
 
-	e.POST("/register", ah.registerActivity)
-	e.GET("/all", ah.listDatapoints)
+	//	e.POST("/register", ah.registerActivity)
+	//	e.GET("/all", ah.listDatapoints)
 	e.Logger.Fatal(e.Start("127.0.0.1:3000"))
 }
