@@ -3,7 +3,10 @@ package main
 import (
 	"log"
 
+	"github.com/dead-like-roses/od_tracker/handlers"
+	"github.com/dead-like-roses/od_tracker/services"
 	"github.com/dead-like-roses/od_tracker/storage"
+
 	//	. "github.com/go-jet/jet/v2/postgres"
 	"github.com/labstack/echo/v4"
 	// _ "github.com/lib/pq"
@@ -17,6 +20,14 @@ func main() {
 	if err != nil {
 		log.Fatal(err.Error())
 	}
+
+	deviceService := services.NewDeviceService(db)
+
+	deviceHandler := handlers.NewDeviceHandler(deviceService)
+
+	deviceGroup := e.Group("/device")
+
+	deviceGroup.POST("register", deviceHandler.RegisterDevice)
 
 	//	ah := ActivityHandler{}
 
