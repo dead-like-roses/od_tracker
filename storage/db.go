@@ -39,7 +39,7 @@ func InitDatabase() *sql.DB {
 
 func RunMigrations(db *sql.DB) error {
 	stmt := `CREATE TABLE IF NOT EXISTS devices(
-                 device_id character(36) NOT NULL,
+                 device_id character(36) NOT NULL PRIMARY KEY UNIQUE,
                  name text NOT NULL
                  );`
 	_, err := db.Exec(stmt)

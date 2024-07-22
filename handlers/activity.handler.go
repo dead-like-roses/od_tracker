@@ -13,11 +13,17 @@ type ActivityRequest struct {
 	PostedAt time.Time `json:"posted_at"`
 }
 
-type ActivityHandler struct {
-	service services.ActivityService
+func NewActivityHandler(service *services.ActivityService) *ActivityHandler {
+	return &ActivityHandler{
+		service: service,
+	}
 }
 
-func (ah ActivityHandler) registerActivity(c echo.Context) error {
+type ActivityHandler struct {
+	service *services.ActivityService
+}
+
+func (ah ActivityHandler) RegisterActivity(c echo.Context) error {
 	a := new(ActivityRequest)
 	if err := c.Bind(a); err != nil {
 		return err
@@ -25,6 +31,6 @@ func (ah ActivityHandler) registerActivity(c echo.Context) error {
 	return c.JSON(http.StatusCreated, a)
 }
 
-func (ah ActivityHandler) listDatapoints(c echo.Context) error {
+func (ah ActivityHandler) ListDatapoints(c echo.Context) error {
 	return c.String(http.StatusOK, "list of datapoints")
 }

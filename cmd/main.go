@@ -27,11 +27,13 @@ func main() {
 
 	deviceGroup := e.Group("/device")
 
-	deviceGroup.POST("register", deviceHandler.RegisterDevice)
+	deviceGroup.POST("/register", deviceHandler.RegisterDevice)
 
-	//	ah := ActivityHandler{}
+	activityService := services.NewActivityService(db)
 
-	//	e.POST("/register", ah.registerActivity)
+	ah := handlers.NewActivityHandler(activityService)
+
+	e.POST("/register", ah.RegisterActivity)
 	//	e.GET("/all", ah.listDatapoints)
 	e.Logger.Fatal(e.Start("127.0.0.1:3000"))
 }
