@@ -9,8 +9,8 @@ import (
 )
 
 type ActivityRequest struct {
-	Device   string    `json:"device"`
-	PostedAt time.Time `json:"posted_at"`
+	Device   string `json:"device"`
+	PostedAt int64  `json:"posted_at"`
 }
 
 func NewActivityHandler(service *services.ActivityService) *ActivityHandler {
@@ -28,6 +28,10 @@ func (ah ActivityHandler) RegisterActivity(c echo.Context) error {
 	if err := c.Bind(a); err != nil {
 		return err
 	}
+	activityTime := time.Unix(a.PostedAt, 0)
+
+	ah.service.CreateDataPoint(a.Device, activityTime)
+
 	return c.JSON(http.StatusCreated, a)
 }
 
